@@ -1,13 +1,19 @@
-﻿@using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata
-@{
+﻿@{
     ViewData["Title"] = "Alla produkter";
 }
+@model List<SkysMvcDemo.ViewModels.ProductViewModel>
 
 
 <h1>Alla produkter</h1>
 
 <ul>
-    <li>
-        dhjda
-    </li>
+    @foreach (var product in Model)
+    {
+        <li>
+            <a asp-controller="Product" asp-action="ShowOne" 
+               asp-route-bajskorv="@product.Id" >@product.Name</a>
+            , @product.Price
+        </li>
+
+    }
 </ul>

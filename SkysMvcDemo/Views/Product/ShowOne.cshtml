@@ -1,5 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Alla produkter";
+﻿@model SkysMvcDemo.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Billigt!!" + @Model.Name;
 }
 
-<h1>En produkt</h1>
+
+<h1>@Model.Name</h1>
+<p>@Model.Price</p>
