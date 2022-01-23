@@ -9,15 +9,15 @@ namespace SkysMvcDemo.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductRepository _productRepository;
+        private readonly ApplicationDbContext _dbContext;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(ApplicationDbContext dbContext)
         {
-            _productRepository = productRepository;
+            _dbContext = dbContext;
         }
         public IActionResult Index()
         {
-            List<ProductViewModel> viewModel = _productRepository.GetAll()
+            List<ProductViewModel> viewModel = _dbContext.Products
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
@@ -29,7 +29,7 @@ namespace SkysMvcDemo.Controllers
 
         public IActionResult ShowOne(int bajskorv)
         {
-            var product = _productRepository.GetAll().First(e => e.Id == bajskorv);
+            var product = _dbContext.Products.First(e => e.Id == bajskorv);
             var viewModel = new ProductViewModel();
             viewModel.Name = product.Name;
             viewModel.Price = product.Price;
