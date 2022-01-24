@@ -15,6 +15,8 @@ namespace SkysMvcDemo.ViewModels
         [MaxLength(15)]
         public string Ean13 { get; set; }
 
+
+        [Range(0,100)]
         public int PopularityPercent { get; set; }
 
     }

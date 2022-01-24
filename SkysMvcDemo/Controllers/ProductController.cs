@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -25,6 +26,45 @@ namespace SkysMvcDemo.Controllers
                     Name = p.Name,
                     Price = p.Price,
                 }).ToList();
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int productId)
+        {
+            var viewModel = new ProductEditViewModel();
+            var product = _dbContext.Products.First(p => p.Id == productId);
+            viewModel.Name = product.Name;
+            viewModel.Price = Convert.ToInt32(product.Price);
+            viewModel.Color = product.Color;
+            viewModel.Ean13 = product.Ean13;
+            viewModel.PopularityPercent = product.PopularityPercent;
+
+            // fylla viewmodel från databas
+            //anropa View och skicka in viewModel
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int productId, ProductEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //Hämta objjekt från db
+                var product = _dbContext.Products.First(p => p.Id == productId);
+                product.Name = viewModel.Name;
+                product.Price = viewModel.Price;
+                product.Color = viewModel.Color;
+                product.Ean13 = viewModel.Ean13;
+                product.PopularityPercent = viewModel.PopularityPercent;
+                //mappa till objekt från viewmodel
+                _dbContext.SaveChanges();
+                //Save to db
+
+                //Redirect
+                return RedirectToAction("Index", "Product");
+            }
+
             return View(viewModel);
         }
 
