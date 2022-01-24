@@ -1,13 +1,13 @@
-﻿@model SkysMvcDemo.ViewModels.ProductEditViewModel
+﻿@model SkysMvcDemo.ViewModels.ProductNewViewModel
 
 @{
-    ViewData["Title"] = "Edit " + @Model.Name;
+    ViewData["Title"] = "New " + @Model.Name;
 }
 
 
 <div class="card">
     <div class="card-header">
-        <h1>Edit </h1>
+        <h1>New </h1>
     </div>
     <div class="card-body">
         <form method="post">
@@ -50,4 +50,3 @@
 {
     <partial name="_ValidationScriptsPartial"/>
 }    
-

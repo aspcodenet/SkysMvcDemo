@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using SkysMvcDemo.Models;
@@ -28,6 +29,42 @@ namespace SkysMvcDemo.Controllers
                 }).ToList();
             return View(viewModel);
         }
+
+        [HttpGet]
+        public IActionResult New()
+        {
+            var viewModel = new ProductNewViewModel();
+            //Filldropdown()
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult New(ProductNewViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = new Product();
+                product.Name = viewModel.Name;
+                product.Price = viewModel.Price;
+                product.Color = viewModel.Color;
+                product.Ean13 = viewModel.Ean13;
+                product.PopularityPercent = viewModel.PopularityPercent;
+
+                _dbContext.Products.Add(product);
+                //mappa till objekt från viewmodel
+                _dbContext.SaveChanges();
+                //Save to db
+
+                //Redirect
+                return RedirectToAction("Index", "Product");
+            }
+
+            //Filldropdown()
+            return View(viewModel);
+        }
+
+
+
 
         [HttpGet]
         public IActionResult Edit(int productId)
