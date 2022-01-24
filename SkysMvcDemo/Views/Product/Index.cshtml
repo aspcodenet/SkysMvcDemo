@@ -1,12 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Alla produkter";
 }
-@model List<SkysMvcDemo.ViewModels.ProductViewModel>
+@model SkysMvcDemo.ViewModels.ProductListViewModel
 
 
 <h1>Alla produkter</h1>
 
-<ul>
+@*<ul>
     @foreach (var product in Model)
     {
         <li>
@@ -17,3 +17,40 @@
 
     }
 </ul>
+*@
+
+<div class="card">
+    <div class="card-header">
+        <h1>Alla personer</h1>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>Namn</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var product in Model.Items)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-productId="@product.Id"><i class='bx bx-edit'></i></a>
+                    </td>
+                    <td>
+                        <a asp-action="ShowOne" asp-controller="Product" asp-route-bajskorv="@product.Id">
+                            <i class='bx bxs-user-detail'></i>
+                        </a>
+                    </td>
+
+
+                </tr>
+            }
+        </table>
+        
+        <a class="btn" asp-action="New">Create new</a>
+
+    </div>
+</div>

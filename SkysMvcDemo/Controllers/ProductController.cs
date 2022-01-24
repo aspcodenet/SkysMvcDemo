@@ -17,7 +17,8 @@ namespace SkysMvcDemo.Controllers
         }
         public IActionResult Index()
         {
-            List<ProductViewModel> viewModel = _dbContext.Products
+            var viewModel = new ProductListViewModel();
+            viewModel.Items = _dbContext.Products
                 .Select(p => new ProductViewModel
                 {
                     Id = p.Id,
